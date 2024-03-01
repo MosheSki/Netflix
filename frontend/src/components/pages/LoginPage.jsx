@@ -22,8 +22,11 @@ const LoginPage = () => {
             New to Netflix? <b>Sign Up Now!</b>
           </span>
           <small>
-            This page is protected by Google reCAPTCHA to ensure you're not a
-            bot. <b>Learn more</b>.
+            This is not actually Netflix!
+            <br />
+            All Rights Reserved © 2024
+            <br />
+            <b>Learn more</b>
           </small>
         </form>
       </div>
