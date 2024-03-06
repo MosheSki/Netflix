@@ -1,8 +1,14 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = ({ _id, username, email, isAdmin }) => {
+export const generateToken = ({ _id, username, email, isAdmin, myList }) => {
   return jwt.sign(
-    { _id: _id, username: username, email: email, isAdmin: isAdmin },
+    {
+      _id: _id,
+      username: username,
+      email: email,
+      isAdmin: isAdmin,
+      myList: myList,
+    },
     process.env.JWT_PW,
     {
       expiresIn: "7d",
@@ -20,6 +26,7 @@ export const isAuth = (req, res, next) => {
         res.status(401).send({ message: err.message });
       } else {
         req.user = user;
+
         next();
       }
     });

@@ -3,12 +3,48 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import ReactPlayer from "react-player"; //fix !!!
 
-const ListItem = ({ index }) => {
+const ListItem = ({ index, item }) => {
   const [isHoverd, setIsHoverd] = useState(false);
-  const trailer =
-    "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const getContent = async () => {
+      try {
+        const res = await axios.get("/contents/find/" + item, {
+          headers: {
+            token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
+          },
+        });
+        setContent(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getContent();
+  }, [item]);
+
+  const addToMyList = async () => {
+    try {
+      await axios.post(
+        `/lists/${item}`,
+        {},
+        {
+          headers: {
+            token: "Bearer " + JSON.parse(localStorage.getItem("user")).token,
+          },
+        }
+      );
+      // Optionally handle success, update UI, etc.
+    } catch (error) {
+      console.log(error);
+      // Handle error, display a message, etc.
+    }
+  };
 
   return (
     <div
@@ -17,31 +53,37 @@ const ListItem = ({ index }) => {
       onMouseEnter={() => setIsHoverd(true)}
       onMouseLeave={() => setIsHoverd(false)}
     >
-      <img
-        src="https://occ-0-1723-92.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABU7D36jL6KiLG1xI8Xg_cZK-hYQj1L8yRxbQuB0rcLCnAk8AhEK5EM83QI71bRHUm0qOYxonD88gaThgDaPu7NuUfRg.jpg?r=4ee"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       {isHoverd && (
         <>
-          <video src={trailer} autoPlay={true} loop />
+          {/* <ReactPlayer
+            className="react-player"
+            url={content.trailer}
+            playing={true}
+            width="100%"
+            height="100%"
+          /> */}
+
           <div className="itemInfo">
             <div className="icons">
-              <PlayArrowIcon className="icon" />
-              <AddIcon className="icon" />
+              <Link
+                className="link"
+                to={{ pathname: "/watch" }}
+                state={content}
+              >
+                <PlayArrowIcon className="icon" />
+              </Link>
+              <AddIcon className="icon" onClick={addToMyList} />
               <ThumbUpOutlinedIcon className="icon" />
               <ThumbDownOutlinedIcon className="icon" />
             </div>
             <div className="itemInfoTop">
-              <span>1 hour 14 mins</span>
-              <span className="limit">+16</span>
-              <span>1999</span>
-              <div className="genre">Action</div>
+              <span>{content.duration}</span>
+              <span className="limit">{content.limit}</span>
+              <span>{content.year}</span>
+              <div className="genre">{content.genre}</div>
             </div>
-            <div className="desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-              omnis magni aperiam quasi exercitationem veritatis assumenda
-              eveniet
-            </div>
+            <div className="desc">{content.description}</div>
           </div>
         </>
       )}

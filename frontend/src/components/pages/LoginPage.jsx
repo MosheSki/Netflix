@@ -1,6 +1,19 @@
+import { useContext, useState } from "react";
 import "./loginpage.scss";
+import { AuthContext } from "../../authContext/AuthContext";
+import { login } from "../../authContext/apiCalls";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { dispatch } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login({ email, password }, dispatch);
+  };
+
   return (
     <div className="loginPage">
       <div className="top">
@@ -15,12 +28,26 @@ const LoginPage = () => {
       <div className="container">
         <form>
           <h1>Sign In</h1>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
-          <button className="loginButton">Sign In</button>
-          <span>
-            New to Netflix? <b>Sign Up Now!</b>
-          </span>
+          <input
+            type="email"
+            placeholder="Email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="loginButton" onClick={handleLogin}>
+            Sign In
+          </button>
+          <Link to="/register" className="link">
+            <span>
+              New to Netflix? <b>Sign Up Now!</b>
+            </span>
+          </Link>
           <small>
             This is not actually Netflix!
             <br />

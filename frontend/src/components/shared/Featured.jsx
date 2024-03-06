@@ -1,14 +1,41 @@
 import "./featured.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Featured = ({ type }) => {
+const Featured = ({ type, setGenre }) => {
+  const [content, setContent] = useState({});
+
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const res = await axios.get(`/contents/random?type=${type}`, {
+          headers: {
+            token:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxMDU4NzFjYjFmNjVjMDYwNTQwMzgiLCJ1c2VybmFtZSI6Im1vc2hlIiwiZW1haWwiOiJtb3NoZUBtb3NoZS5jb20iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MDkyOTI1NzcsImV4cCI6MTcwOTg5NzM3N30.r61Wfq331R0HFyhO9-SX6il0nYJ8x1bgNLVWfmhnWTM",
+            // JSON.parse(localStorage.getItem("user")).accessToken,
+          },
+        });
+        setContent(res.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRandomContent();
+  }, [type]);
+
   return (
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movies" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          {/* <span>{type === "movies" ? "Movies" : "Series"}</span> */}
+          {/* <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
             <option value="action">Action</option>
             <option value="comedy">Comedy</option>
@@ -16,29 +43,20 @@ const Featured = ({ type }) => {
             <option value="detective">Detective</option>
             <option value="horror">Horror</option>
             <option value="animation">Animation</option>
-          </select>
+          </select> */}
         </div>
       )}
-      <img
-        src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
-        <img
-          src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1"
-          alt=""
-        />
-        <span className="desc">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto maxime
-          officiis corporis libero illo voluptatum quisquam hic non eos quos
-          nobis enim temporibus ipsam voluptatibus, error tenetur debitis sequi
-          dignissimos.
-        </span>
+        <img src={content.imgTitle} alt="" />
+        <span className="desc">{content.description}</span>
         <div className="buttons">
-          <button className="play">
-            <PlayArrowIcon />
-            <span>Play</span>
-          </button>
+          <Link className="link" to={{ pathname: "/watch" }} state={content}>
+            <button className="play">
+              <PlayArrowIcon />
+              <span>Play</span>
+            </button>
+          </Link>
           <button className="more">
             <InfoOutlinedIcon />
             <span>Info</span>

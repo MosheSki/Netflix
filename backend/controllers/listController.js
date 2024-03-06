@@ -1,4 +1,5 @@
 import List from "../models/List.js";
+import User from "../models/User.js";
 
 //CREATE
 const create = async (req, res) => {
@@ -58,4 +59,32 @@ const get = async (req, res) => {
   }
 };
 
-export { create, deleteList, get };
+//ADD TO MY LIST
+const addToMyList = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.myList.includes(id)) {
+      return res
+        .status(400)
+        .json({ message: "Content already exists in user's list" });
+    }
+
+    user.myList.push(id);
+
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Content added to user's list successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { create, deleteList, get, addToMyList };

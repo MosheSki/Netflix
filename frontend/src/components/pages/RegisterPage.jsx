@@ -1,13 +1,18 @@
 import { useRef, useState } from "react";
 import "./registerpage.scss";
 import { toast } from "react-toastify"; // Import toast from react-toastify
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   const emailRef = useRef();
   const passwordRef = useRef();
+  const usernameRef = useRef();
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,8 +29,21 @@ const RegisterPage = () => {
     setEmail(enteredEmail);
   };
 
-  const handleFinish = () => {
+  const handleFinish = async (e) => {
+    e.preventDefault();
     setPassword(passwordRef.current.value);
+    setUsername(usernameRef.current.value);
+    // console.log(passwordRef.current.value, usernameRef.current.value);
+    try {
+      await axios.post("users/register", {
+        email,
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -37,7 +55,9 @@ const RegisterPage = () => {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-          <button className="loginButton">Sign In</button>
+          <Link to="/login" className="link">
+            <button className="loginButton">Sign In</button>
+          </Link>
         </div>
       </div>
       <div className="container">
@@ -60,7 +80,12 @@ const RegisterPage = () => {
           </div>
         ) : (
           <form className="input">
-            {/* <input type="username" placeholder="username" ref={usernameRef} /> */}
+            <input
+              type="username"
+              placeholder="username"
+              required
+              ref={usernameRef}
+            />
             <input
               type="password"
               placeholder="Password"
