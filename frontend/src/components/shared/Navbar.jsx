@@ -41,10 +41,10 @@ const Navbar = ({ onChange }) => {
             <span>My List</span>
           </Link>
         </div>
-        <SearchInput onChange={(e) => onChange(e)} />
         <div className="right">
+          <SearchInput onChange={(e) => onChange(e)} />
           <SearchIcon className="icon" />
-          <span>USER</span>
+          {/* <span>USER</span> */}
           <NotificationsIcon className="icon" />
           <img
             src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"

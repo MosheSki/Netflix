@@ -1,4 +1,5 @@
 // import { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 import "./searchinput.scss";
 import { useNavigate } from "react-router-dom";
 

@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player"; //fix !!!
+import { toast } from "react-toastify";
 
 const ListItem = ({ index, item }) => {
   const [isHoverd, setIsHoverd] = useState(false);
@@ -39,8 +40,10 @@ const ListItem = ({ index, item }) => {
           },
         }
       );
+      toast.success("added to your list");
       // Optionally handle success, update UI, etc.
     } catch (error) {
+      toast.error("already in your list");
       console.log(error);
       // Handle error, display a message, etc.
     }
