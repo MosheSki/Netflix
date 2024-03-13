@@ -9,7 +9,11 @@ import listRouter from "./routes/listRouter.js";
 const app = express();
 dotenv.config();
 
-app.use(cors());
+const corsOptions = {
+  origin: ["http://localhost:8080", "https://netflix-beige-sigma.vercel.app/"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/users", userRouter);
