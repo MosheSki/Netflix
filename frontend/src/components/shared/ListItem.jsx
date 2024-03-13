@@ -56,14 +56,14 @@ const ListItem = ({ index, item }) => {
       <img src={content.img} alt="" />
       {isHoverd && (
         <>
-          {/* <ReactPlayer
+          <ReactPlayer
             className="react-player"
             url={content.trailer}
             playing={true}
             width="100%"
             height="50%"
             muted
-          /> */}
+          />
 
           <div className="itemInfo">
             <div className="icons">
@@ -76,8 +76,8 @@ const ListItem = ({ index, item }) => {
               </Link>
 
               <AddIcon className="icon" onClick={addToMyList} />
-              <ThumbUpOutlinedIcon className="icon" />
-              <ThumbDownOutlinedIcon className="icon" />
+              {/* <ThumbUpOutlinedIcon className="icon" />
+              <ThumbDownOutlinedIcon className="icon" /> */}
             </div>
             <div className="itemInfoTop">
               <span>{content.duration}</span>
