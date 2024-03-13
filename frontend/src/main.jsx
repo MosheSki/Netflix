@@ -7,7 +7,7 @@ import { AuthContextProvider } from "./authContext/AuthContext.jsx";
 
 axios.defaults.baseURL = import.meta.env.DEV
   ? "http://localhost:8080/api/"
-  : "https://netflix-beige-sigma.vercel.app/api/";
+  : "https://netflix-beige-sigma.vercel.app";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
