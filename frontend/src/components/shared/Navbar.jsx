@@ -6,8 +6,9 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../authContext/AuthContext";
 import { logout } from "../../authContext/AuthActions";
+import SearchInput from "../shared/SearchInput";
 
-const Navbar = () => {
+const Navbar = ({ onChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { dispatch } = useContext(AuthContext);
 
@@ -40,6 +41,7 @@ const Navbar = () => {
             <span>My List</span>
           </Link>
         </div>
+        <SearchInput onChange={(e) => onChange(e)} />
         <div className="right">
           <SearchIcon className="icon" />
           <span>USER</span>

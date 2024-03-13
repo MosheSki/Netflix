@@ -7,6 +7,7 @@ import {
   get,
   getRandom,
   getAll,
+  getByTitle,
 } from "../controllers/contentController.js";
 import { isAuth } from "../utils.js";
 
@@ -19,5 +20,6 @@ contentRouter.delete("/:id", isAuth, expressAsyncHandler(deleteContent));
 contentRouter.get("/find/:id", isAuth, expressAsyncHandler(get));
 contentRouter.get("/random", isAuth, expressAsyncHandler(getRandom));
 contentRouter.get("/", isAuth, expressAsyncHandler(getAll));
+contentRouter.get("/title/:search", isAuth, expressAsyncHandler(getByTitle));
 
 export default contentRouter;

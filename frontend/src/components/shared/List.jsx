@@ -5,7 +5,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import ListItem from "./ListItem";
 import { useRef, useState } from "react";
 
-const List = ({ list }) => {
+const List = ({ listTitle, contentList }) => {
   const [isMoved, setIsMoved] = useState(false);
   const [sliderNumber, setSliderNumber] = useState(0);
 
@@ -18,7 +18,7 @@ const List = ({ list }) => {
       setSliderNumber(sliderNumber - 1);
       listRef.current.style.transform = `translateX(${230 + distance}px   )`;
     }
-    if (direction === "right" && sliderNumber < 5) {
+    if (direction === "right" && sliderNumber < 10) {
       setSliderNumber(sliderNumber + 1);
       listRef.current.style.transform = `translateX(${-230 + distance}px   )`;
     }
@@ -26,7 +26,7 @@ const List = ({ list }) => {
 
   return (
     <div className="list">
-      <span className="listTitle">{list.title}</span>
+      <span className="listTitle">{listTitle}</span>
       <div className="wrapper">
         <ArrowBackIosNewOutlinedIcon
           className="sliderArrow left"
@@ -34,7 +34,7 @@ const List = ({ list }) => {
           style={{ display: !isMoved && "none" }}
         />
         <div className="container" ref={listRef}>
-          {list.content.map((item, i) => (
+          {contentList.map((item, i) => (
             <ListItem key={i} index={i} item={item} />
           ))}
         </div>

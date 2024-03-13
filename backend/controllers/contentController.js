@@ -86,6 +86,7 @@ const getAll = async (req, res) => {
     try {
       const contents = await Content.find();
       res.status(200).json(contents.reverse());
+      console.log(contents);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -94,4 +95,16 @@ const getAll = async (req, res) => {
   }
 };
 
-export { create, update, deleteContent, get, getRandom, getAll };
+//GET ALL BY TITLE
+const getByTitle = async (req, res) => {
+  try {
+    const contents = await Content.find({
+      title: { $regex: req.params.search, $options: "i" }, //gets big and small cases
+    });
+    res.status(200).json(contents.map((content) => content._id));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { create, update, deleteContent, get, getRandom, getAll, getByTitle };

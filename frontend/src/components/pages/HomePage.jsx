@@ -34,8 +34,9 @@ const HomePage = ({ type }) => {
       <Navbar />
       <Featured type={type} setGenre={setGenre} />
       {lists.map((list, index) => (
-        <List key={index} list={list} />
+        <List key={index} contentList={list.content} listTitle={list.title} />
       ))}
+      {console.log(lists)}
     </div>
   );
 };

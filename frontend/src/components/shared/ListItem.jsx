@@ -61,7 +61,8 @@ const ListItem = ({ index, item }) => {
             url={content.trailer}
             playing={true}
             width="100%"
-            height="100%"
+            height="50%"
+            muted
           /> */}
 
           <div className="itemInfo">
@@ -73,6 +74,7 @@ const ListItem = ({ index, item }) => {
               >
                 <PlayArrowIcon className="icon" />
               </Link>
+
               <AddIcon className="icon" onClick={addToMyList} />
               <ThumbUpOutlinedIcon className="icon" />
               <ThumbDownOutlinedIcon className="icon" />

@@ -1,3 +1,4 @@
+import Content from "../models/Content.js";
 import List from "../models/List.js";
 import User from "../models/User.js";
 
@@ -87,4 +88,16 @@ const addToMyList = async (req, res) => {
   }
 };
 
-export { create, deleteList, get, addToMyList };
+const getMyList = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user.myList);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { create, deleteList, get, addToMyList, getMyList };

@@ -10,6 +10,8 @@ import LoginPage from "./components/pages/LoginPage";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./authContext/AuthContext";
+import MyListPage from "./components/pages/MyListPage";
+import SearchResultsPage from "./components/pages/SearchResultsPage";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -34,8 +36,9 @@ const App = () => {
           <>
             <Route path="/movies" element={<HomePage type="movie" />} />
             <Route path="/series" element={<HomePage type="series" />} />
-            <Route path="/myList" element={<HomePage />} />
+            <Route path="/myList" element={<MyListPage />} />
             <Route path="/watch" element={<WatchPage />} />
+            <Route path="/search" element={<SearchResultsPage />} />
           </>
         )}
       </Routes>
