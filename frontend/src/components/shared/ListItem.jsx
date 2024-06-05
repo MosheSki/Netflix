@@ -1,12 +1,11 @@
 import "./listitem.scss";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
-import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import ReactPlayer from "react-player"; //fix !!!
+import ReactPlayer from "react-player";
 import { toast } from "react-toastify";
 
 const ListItem = ({ index, item }) => {
@@ -79,8 +78,6 @@ const ListItem = ({ index, item }) => {
               </Link>
 
               <AddIcon className="icon" onClick={addToMyList} />
-              {/* <ThumbUpOutlinedIcon className="icon" />
-              <ThumbDownOutlinedIcon className="icon" /> */}
             </div>
             <div className="itemInfoTop">
               <span>{content.duration}</span>

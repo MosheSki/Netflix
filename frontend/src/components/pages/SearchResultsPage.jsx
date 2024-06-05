@@ -40,11 +40,7 @@ const SearchResultsPage = () => {
           setSearchValue(e.target.value);
         }}
       />
-      {/* <div className="list-items">
-        {searchResult.map((item, index) => (
-          <ListItem key={index} item={item._id} />
-        ))}
-      </div> */}
+
       <List contentList={searchResult} listTitle={"Search Results"} />
     </div>
   );

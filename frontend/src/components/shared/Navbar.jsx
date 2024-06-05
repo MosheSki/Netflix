@@ -1,9 +1,8 @@
 import "./navbar.scss";
 import SearchIcon from "@mui/icons-material/Search";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../authContext/AuthContext";
 import { logout } from "../../authContext/AuthActions";
 import SearchInput from "../shared/SearchInput";
@@ -11,6 +10,7 @@ import SearchInput from "../shared/SearchInput";
 const Navbar = ({ onChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { dispatch } = useContext(AuthContext);
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -42,10 +42,14 @@ const Navbar = ({ onChange }) => {
           </Link>
         </div>
         <div className="right">
-          <SearchInput onChange={(e) => onChange(e)} />
-          <SearchIcon className="icon" />
-          {/* <span>USER</span> */}
-          <NotificationsIcon className="icon" />
+          {location.pathname === "/search" && (
+            <SearchInput onChange={(e) => onChange(e)} />
+          )}
+
+          <Link to="/search" className="link">
+            <SearchIcon className="icon" />
+          </Link>
+
           <img
             src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
             alt=""
@@ -53,7 +57,6 @@ const Navbar = ({ onChange }) => {
           <div className="profile">
             <ArrowDropDownIcon className="icon" />
             <div className="options">
-              {/* <span>Settings</span> */}
               <span onClick={() => handleLogout()}>Logout</span>
             </div>
           </div>

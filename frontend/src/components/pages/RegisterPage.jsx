@@ -33,7 +33,6 @@ const RegisterPage = () => {
     e.preventDefault();
     setPassword(passwordRef.current.value);
     setUsername(usernameRef.current.value);
-    // console.log(passwordRef.current.value, usernameRef.current.value);
     try {
       await axios.post("users/register", {
         email,

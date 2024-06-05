@@ -34,26 +34,5 @@ const MyListPage = () => {
     </>
   );
 };
-{
-  /* <div className="list">
-  <span className="listTitle">{list.title}</span>
-  <div className="wrapper">
-    <ArrowBackIosNewOutlinedIcon
-      className="sliderArrow left"
-      onClick={() => handleClick("left")}
-      style={{ display: !isMoved && "none" }}
-    />
-    <div className="container" ref={listRef}>
-      {list.content.map((item, i) => (
-        <ListItem key={i} index={i} item={item} />
-      ))}
-    </div>
-    <ArrowForwardIosOutlinedIcon
-      className="sliderArrow right"
-      onClick={() => handleClick("right")}
-    />
-  </div>
-</div>; */
-}
 
 export default MyListPage;

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Featured = ({ type, setGenre }) => {
+const Featured = ({ type }) => {
   const [content, setContent] = useState({});
 
   useEffect(() => {
@@ -26,24 +26,6 @@ const Featured = ({ type, setGenre }) => {
 
   return (
     <div className="featured">
-      {type && (
-        <div className="category">
-          {/* <span>{type === "movies" ? "Movies" : "Series"}</span> */}
-          {/* <select
-            name="genre"
-            id="genre"
-            onChange={(e) => setGenre(e.target.value)}
-          >
-            <option>Genre</option>
-            <option value="action">Action</option>
-            <option value="comedy">Comedy</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="detective">Detective</option>
-            <option value="horror">Horror</option>
-            <option value="animation">Animation</option>
-          </select> */}
-        </div>
-      )}
       <img src={content.img} alt="" />
       <div className="info">
         <img src={content.imgTitle} alt="" />

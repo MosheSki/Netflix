@@ -36,7 +36,6 @@ const HomePage = ({ type }) => {
       {lists.map((list, index) => (
         <List key={index} contentList={list.content} listTitle={list.title} />
       ))}
-      {console.log(lists)}
     </div>
   );
 };
