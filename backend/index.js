@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/userRouter.js";
 import contentRouter from "./routes/contentRouter.js";
 import listRouter from "./routes/listRouter.js";
+import helmet from "helmet";
 
 const app = express();
 dotenv.config();
@@ -12,6 +13,7 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
 
 app.use("/api/users", userRouter);
 app.use("/api/contents", contentRouter);
