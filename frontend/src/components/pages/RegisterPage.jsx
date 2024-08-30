@@ -94,6 +94,7 @@ const RegisterPage = () => {
             </button>
           </form>
         )}
+        <p>This is not actually Netflix, All Rights Reserved © 2024</p>
       </div>
     </div>
   );
