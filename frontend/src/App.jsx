@@ -12,36 +12,42 @@ import { useContext } from "react";
 import { AuthContext } from "./authContext/AuthContext";
 import MyListPage from "./components/pages/MyListPage";
 import SearchResultsPage from "./components/pages/SearchResultsPage";
+import Footer from "./components/shared/Footer";
 
 const App = () => {
   const { user } = useContext(AuthContext);
   return (
     <BrowserRouter>
-      <ToastContainer position="bottom-center" limit={1}></ToastContainer>
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={user ? <HomePage /> : <Navigate to="/register" />}
-        />
-        <Route
-          path="/register"
-          element={!user ? <RegisterPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/login"
-          element={!user ? <LoginPage /> : <Navigate to="/" />}
-        />
-        {user && (
-          <>
-            <Route path="/movies" element={<HomePage type="movie" />} />
-            <Route path="/series" element={<HomePage type="series" />} />
-            <Route path="/myList" element={<MyListPage />} />
-            <Route path="/watch" element={<WatchPage />} />
-            <Route path="/search" element={<SearchResultsPage />} />
-          </>
-        )}
-      </Routes>
+      <div className="app-container">
+        <ToastContainer position="bottom-center" limit={1}></ToastContainer>
+        <div className="content">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={user ? <HomePage /> : <Navigate to="/register" />}
+            />
+            <Route
+              path="/register"
+              element={!user ? <RegisterPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/login"
+              element={!user ? <LoginPage /> : <Navigate to="/" />}
+            />
+            {user && (
+              <>
+                <Route path="/movies" element={<HomePage type="movie" />} />
+                <Route path="/series" element={<HomePage type="series" />} />
+                <Route path="/myList" element={<MyListPage />} />
+                <Route path="/watch" element={<WatchPage />} />
+                <Route path="/search" element={<SearchResultsPage />} />
+              </>
+            )}
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 };

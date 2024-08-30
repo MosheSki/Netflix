@@ -3,15 +3,20 @@ import "./loginpage.scss";
 import { AuthContext } from "../../authContext/AuthContext";
 import { login } from "../../authContext/apiCalls";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify"; // Import toast from react-toastify
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { dispatch } = useContext(AuthContext);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login({ email, password }, dispatch);
+    try {
+      await login({ email, password }, dispatch);
+    } catch (error) {
+      toast.error("Email or password is incorrect!");
+    }
   };
 
   return (
